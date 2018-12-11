@@ -84,8 +84,7 @@ function MainMove(){
     });
       
     mian.addEventListener( 'touchmove' ,function(e) {
-        // e.preventDefault();
-        console.log(2)
+        e.preventDefault();
         if (click) {
             target.rotation.x = targetOnDown.rotation.x - (e.touches[0].pageY - cursor.y) * 0.3;
             target.rotation.y = targetOnDown.rotation.y + (e.touches[0].pageX - cursor.x) * 0.3;
@@ -93,7 +92,6 @@ function MainMove(){
     });
     
     mian.addEventListener( 'touchend' ,function(e) {
-        console.log(3)
         click = false;
     });
     (function animate() {
