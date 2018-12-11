@@ -72,6 +72,30 @@ function MainMove(){
     mian.onmouseup = function(e) {
         click = false;
     };
+    mian.addEventListener( 'touchstart' ,function(e) {
+        cursor.x = e.touches[0].pageX;
+        cursor.y = e.touches[0].pageY;
+        targetOnDown.position.x = target.position.x;
+        targetOnDown.position.y = target.position.y;
+        targetOnDown.rotation.x = target.rotation.x;
+        targetOnDown.rotation.y = target.rotation.y;
+        targetOnDown.zoom = target.zoom;
+        click = true;
+    });
+      
+    mian.addEventListener( 'touchmove' ,function(e) {
+        // e.preventDefault();
+        console.log(2)
+        if (click) {
+            target.rotation.x = targetOnDown.rotation.x - (e.touches[0].pageY - cursor.y) * 0.3;
+            target.rotation.y = targetOnDown.rotation.y + (e.touches[0].pageX - cursor.x) * 0.3;
+        }
+    });
+    
+    mian.addEventListener( 'touchend' ,function(e) {
+        console.log(3)
+        click = false;
+    });
     (function animate() {
         transform.position.x += (target.position.x - transform.position.x) * 0.2;
         transform.position.y += (target.position.y - transform.position.y) * 0.2;
