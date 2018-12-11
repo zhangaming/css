@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="Anthor" content="新奇老师" />
+        <title>Title</title>
+        <link rel="stylesheet" href="css/index.css" />
+    </head>
+    <body>
+
+        <div id="all">
+            <!--主屏显示-->
+            <div id="main">
+                <!--所有li模块-->
+                <div id="list">
+                    <ul></ul>
+                </div>
+
+                <!--左下角按钮-->
+                <div id="btn">
+                    <ul>
+						<li>Grid</li>
+                        <li>Helix</li>
+                        <li>Sphere</li>
+                        <li>return</li>
+						<!-- <li>Sphere</li -->>
+						<!-- <li>Table</li> -->
+                    </ul>
+                </div>
+
+                <!--返回按钮-->
+                <div id="back">Back</div>
+            </div>
+
+            <!--框架展示-->
+            <iframe scrolling="no" src="" id="frame"></iframe>
+
+        </div>
+        <script type="text/javascript" src="./js/requestAnimationFrame.js"></script>
+        <script type="text/javascript" src="./js/index.js"></script>
+        <script type="text/javascript">
+            function Magic(){//构造函数
+                this.oUl = document.getElementById('list').children[0];
+                this.aLi =this.oUl.children;
+                this.aBtn = document.getElementById('btn').getElementsByTagName("li");
+                this.listNum =5*5*5;
+            }
+            Magic.prototype ={
+                init:function(){
+                    for (var i = 0; i < this.listNum; i++) {
+                        var oLi = document.createElement('li');
+                        var d =flyData[0];
+                        oLi.innerHTML ="<b class='liCover'></b>"+
+                                        "<p class='liTitil'>"+d.type+"</p>"+
+                                        "<p class='liAuthor'>"+d.author+"</p>"+
+                                        "<p class='liTime'>"+d.time+"</p>";
+                        var tX = Math.random()*6000-3000,
+                            tY = Math.random()*6000-3000,
+                            tZ = Math.random()*6000-3000;
+                            oLi.style.transform="translate3D("+tX+"px,"+tY+"px,"+tZ+"px)";
+                        this.oUl.appendChild(oLi);
+                    };
+                    setTimeout(function(){
+                           this.grid();
+                           console.log(1)
+                           // this.helix();
+                    }.bind(this), 200);
+                    this.clickEvent();
+                },
+                clickEvent:function(){
+                    var arr =[this.grid,this.helix,this.Sphere,this.return];
+                    for (var i = 0; i < this.aBtn.length; i++) {
+                        this.aBtn[i].onclick =arr[i].bind(this);
+                    };
+                },
+                grid:function(){
+                    // console.log(this)
+                    if (this.grid.arr) {
+                         for (var i = 0; i < this.listNum; i++) {
+                           this.aLi[i].style.transform =this.grid.arr[i];
+                       };
+                    }else{
+                        this.grid.arr=[];
+                        var disX=250;//每一个Li水平方向的距离
+                        var disY=250;//每一个Li竖直方向的距离
+                        var disZ=700;//每一个Li纵深方向的距离
+                         for (var i = 0; i <this.listNum; i++) {
+                             this.aLi.x= i%5;//X轴序列号
+                             this.aLi.y = ~~(i % 25 / 5);//y轴序列号
+                             this.aLi.z =4- ~~(i / 25);//y轴序列号
+                             var x =(this.aLi.x-2)*disX;
+                             var y =(this.aLi.y-2)*disY;
+                             var z =(this.aLi.z-2)*disZ;
+                             var val ="translate3D("+x+"px,"+y+"px,"+z+"px)";
+                             this.grid.arr[i]=val;
+                             this.aLi[i].style.transform =val;
+                         };
+                    }
+
+                },
+                // 螺旋式布局
+                helix:function(){
+                    console.log(this)
+                    if (this.helix.arr) {
+                       for (var i = 0; i < this.listNum; i++) {
+                           this.aLi[i].style.transform =this.helix.arr[i];
+                       };
+                    }else{
+                            this.helix.arr=[];
+                            var h =4.7,//环数
+                            num =this.listNum /h , //每环个数
+                            deg =360/num; //每一个Li Y旋转相差
+                            tY =7 ;//每一个Li上下位移相差
+                            mid =this.listNum / 2-0.5 ;//找中间点
+                            for (var i = 0; i < this.listNum; i++) {
+                                var val="rotateY("+i*deg+"deg) translateY("+(i-mid)*tY+"px) translateZ(800px)";
+                                this.helix.arr[i] =val
+                                this.aLi[i].style.transform =val;
+                            };
+                        }
+                },     
+                return:function(){
+                    target = { 
+                        position: { x: 0, y: 0},
+                        rotation: { x: 0, y: 0},
+                        zoom: 100
+                    };
+                },
+                Sphere:function(){
+                    if (this.Sphere.arr) {
+                        for (var i = 0; i < this.listNum; i++) {
+                            this.aLi[i].style.transform =this.Sphere.arr[i];
+                        };
+                    }else{
+                        console.log(this.listNum)//125
+                        this.Sphere.arr=[];
+                        for ( var i = 0, l = this.listNum; i < l; i ++ ) {
+                            var phi = Math.acos( -1 + ( 2 * i ) / l );
+                            var theta = Math.sqrt( l * Math.PI ) * phi;
+                            var object =  console.log(this.listNum)//125
+                            this.Sphere.arr=[];
+                            for ( var i = 0, l = this.listNum; i < l; i ++ ) {
+                                var phi = Math.acos( -1 + ( 2 * i ) / l );
+                                var theta = Math.sqrt( l * Math.PI ) * phi;
+                                var object = {
+                                        position:{
+                                            x: 0,
+                                            y: 0,
+                                            z: 0
+                                        }
+                                };
+                                object.position.x = 800 * Math.cos( theta ) * Math.sin( phi );
+                                object.position.y = 800 * Math.sin( theta ) * Math.sin( phi );
+                                object.position.z = 800 * Math.cos( phi );
+                                var x = object.position.x;
+                                var y = object.position.y;
+                                var z = object.position.z;
+                                var val ="translate3D("+x+"px,"+y+"px,"+z+"px)" ;
+                                this.Sphere.arr[i] =val
+                                this.aLi[i].style.transform =val;
+                            };
+                        } 
+                    }
+                }
+            }
+            var magic = new Magic();
+            magic.init();
+            MainMove();
+        </script>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

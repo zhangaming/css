@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="Anthor" content="新奇老师" />
+        <title>Title</title>
+        <link rel="stylesheet" href="css/index.css" />
+    </head>
+    <body>
+
+        <div id="all">
+            <!--主屏显示-->
+            <div id="main">
+                <!--所有li模块-->
+                <div id="list">
+                    <ul></ul>
+                </div>
+
+                <!--左下角按钮-->
+                <div id="btn">
+                    <ul>
+						<li>Grid</li>
+						<li>Helix</li>
+						<!-- <li>Sphere</li -->>
+						<!-- <li>Table</li> -->
+                    </ul>
+                </div>
+
+                <!--li点击后的弹出层-->
+                <div id="alert" class="before">
+                    <div class="title"><span>课题：VIP57课-潭州案例库的制作</span></div>
+                    <div class="img"><img src="img/test.png" /></div>
+                    <div class="author"><span>主讲老师：新奇老师</span></div>
+                    <div class="info"><span>描述：这大概是最屌的案例了……</span></div>
+                </div>
+
+                <!--返回按钮-->
+                <div id="back">Back</div>
+            </div>
+
+            <!--框架展示-->
+            <iframe scrolling="no" src="" id="frame"></iframe>
+
+        </div>
+        <script type="text/javascript" src="./js/data.js"></script>
+        <script type="text/javascript">
+            function Magic(){//构造函数
+                this.oUl = document.getElementById('list').children[0];
+                this.aLi =this.oUl.children;
+                this.aBtn = document.getElementById('btn').getElementsByTagName("li");
+                this.listNum =5*5*5;
+            }
+            Magic.prototype ={
+                init:function(){
+                    for (var i = 0; i < this.listNum; i++) {
+                        var oLi = document.createElement('li');
+                        var d =flyData[0];
+                        oLi.innerHTML ="<b class='liCover'></b>"+
+                                        "<p class='liTitil'>"+d.type+"</p>"+
+                                        "<p class='liAuthor'>"+d.author+"</p>"+
+                                        "<p class='liTime'>"+d.time+"</p>";
+                        var tX = Math.random()*6000-3000,
+                            tY = Math.random()*6000-3000,
+                            tZ = Math.random()*6000-3000;
+                            oLi.style.transform="translate3D("+tX+"px,"+tY+"px,"+tZ+"px)";
+                        this.oUl.appendChild(oLi);
+                    };
+                    setTimeout(function(){
+                           this.grid();
+                           // this.helix();
+                    }.bind(this), 200);
+                    this.clickEvent();
+                },
+                clickEvent:function(){
+                    var arr =[this.grid,this.helix];
+                    for (var i = 0; i < this.aBtn.length; i++) {
+                        this.aBtn[i].onclick =arr[i].bind(this);
+                    };
+                },
+                grid:function(){
+                    console.log(this)
+                    if (this.grid.arr) {
+                         for (var i = 0; i < this.listNum; i++) {
+                           this.aLi[i].style.transform =this.grid.arr[i];
+                       };
+                    }else{
+                        this.grid.arr=[];
+                        var disX=250;//每一个Li水平方向的距离
+                        var disY=250;//每一个Li竖直方向的距离
+                        var disZ=700;//每一个Li纵深方向的距离
+                         for (var i = 0; i <this.listNum; i++) {
+                             this.aLi.x= i%5;//X轴序列号
+                             this.aLi.y = ~~(i % 25 / 5);//y轴序列号
+                             this.aLi.z =4- ~~(i / 25);//y轴序列号
+                             var x =(this.aLi.x-2)*disX;
+                             var y =(this.aLi.y-2)*disY;
+                             var z =(this.aLi.z-2)*disZ;
+                             var val ="translate3D("+x+"px,"+y+"px,"+z+"px)";
+                             this.grid.arr[i]=val;
+                             this.aLi[i].style.transform =val;
+                         };
+                    }
+
+                },
+                // 螺旋式布局
+                helix:function(){
+                    console.log(this)
+                    if (this.helix.arr) {
+                       for (var i = 0; i < this.listNum; i++) {
+                           this.aLi[i].style.transform =this.helix.arr[i];
+                       };
+                    }else{
+                            this.helix.arr=[];
+                            var h =4.7,//环数
+                            num =this.listNum /h , //每环个数
+                            deg =360/num; //每一个Li Y旋转相差
+                            tY =7 ;//每一个Li上下位移相差
+                            mid =this.listNum / 2-0.5 ;//找中间点
+                            for (var i = 0; i < this.listNum; i++) {
+                                var val="rotateY("+i*deg+"deg) translateY("+(i-mid)*tY+"px) translateZ(800px)";
+                                this.helix.arr[i] =val
+                                this.aLi[i].style.transform =val;
+                            };
+                        }
+                }      
+            }
+            var magic = new Magic();
+            magic.init();
+			var list = document.getElementById('list')
+			drag(list);
+			function drag(obj){
+				//当鼠标在被拖拽元素上按下时，开始拖拽  onmousedown
+				obj.onmousedown = function(event){
+					
+					//设置box1捕获所有鼠标按下的事件
+					/*
+					 * setCapture()
+					 * 	- 只有IE支持，但是在火狐中调用时不会报错，
+					 * 		而如果使用chrome调用，会报错
+					 */
+					/*if(box1.setCapture){
+						box1.setCapture();
+					}*/
+					obj.setCapture && obj.setCapture();
+					
+					
+					event = event || window.event;
+					//div的偏移量 鼠标.clentX - 元素.offsetLeft
+					//div的偏移量 鼠标.clentY - 元素.offsetTop
+					var ol = event.clientX
+					var ot = event.clientY
+					
+					
+					//为document绑定一个onmousemove事件
+					document.onmousemove = function(event){
+						event = event || window.event;
+						//当鼠标移动时被拖拽元素跟随鼠标移动 onmousemove
+						//获取鼠标的坐标
+						var left = event.clientX - ol;
+						var top = event.clientY - ot;
+						
+						//修改box1的位置
+						
+						 var val ="translate3D("+left+"px,"+top+"px,"+left/top+"px)";
+						 obj.style.transform =val
+					};
+					
+					//为document绑定一个鼠标松开事件
+					document.onmouseup = function(){
+						//当鼠标松开时，被拖拽元素固定在当前位置	onmouseup
+						//取消document的onmousemove事件
+						document.onmousemove = null;
+						//取消document的onmouseup事件
+						document.onmouseup = null;
+						//当鼠标松开时，取消对事件的捕获
+						obj.releaseCapture && obj.releaseCapture();
+					};
+					
+					/*
+					 * 当我们拖拽一个网页中的内容时，浏览器会默认去搜索引擎中搜索内容，
+					 * 	此时会导致拖拽功能的异常，这个是浏览器提供的默认行为，
+					 * 	如果不希望发生这个行为，则可以通过return false来取消默认行为
+					 * 
+					 * 但是这招对IE8不起作用
+					 */
+					return false;
+					
+				};
+			}
+        </script>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
