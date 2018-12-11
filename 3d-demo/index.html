@@ -27,14 +27,7 @@
 						<!-- <li>Table</li> -->
                     </ul>
                 </div>
-
-                <!--返回按钮-->
-                <div id="back">Back</div>
             </div>
-
-            <!--框架展示-->
-            <iframe scrolling="no" src="" id="frame"></iframe>
-
         </div>
         <script type="text/javascript" src="./js/requestAnimationFrame.js"></script>
         <script type="text/javascript" src="./js/index.js"></script>
@@ -62,8 +55,6 @@
                     };
                     setTimeout(function(){
                            this.grid();
-                           console.log(1)
-                           // this.helix();
                     }.bind(this), 200);
                     this.clickEvent();
                 },
@@ -74,7 +65,6 @@
                     };
                 },
                 grid:function(){
-                    // console.log(this)
                     if (this.grid.arr) {
                          for (var i = 0; i < this.listNum; i++) {
                            this.aLi[i].style.transform =this.grid.arr[i];

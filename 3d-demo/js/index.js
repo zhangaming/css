@@ -9,8 +9,6 @@ var $ = document.querySelectorAll.bind(document);
 var click = false;
 var cursor = { x: 0, y: 0};
 var perspective = $('#list ul')[0];
-console.log(perspective)
-
 var transform = {
   position: { x: 0, y: 0},
   rotation: { x: 0, y: 0},
