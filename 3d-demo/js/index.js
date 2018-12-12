@@ -99,8 +99,6 @@ function MainMove(){
         console.log(1)
     };
     boxGesture.gesturemove=function(e){  //双指移动
-        target.zoom += (e.scale > 0) ? 15 : -15;
-        if (target.zoom < 50) target.zoom = 50;
     };
     boxGesture.gestureend=function(){  //双指结束
         alert(e.scale)
@@ -146,12 +144,15 @@ function MainMove(){
                 var scale=now[1].pageX-start[1].pageX; //得到缩放比例，getDistance是勾股定理的一个方法
                 var rotation=getAngle(now[0],now[1])-getAngle(start[0],start[1]);  //得到旋转角度，getAngle是得到夹角的一个方法
                 e.scale=scale.toFixed(2);
+                target.zoom += (e.scale > 0) ? 15 : -15;
+                if (target.zoom < 50) target.zoom = 50;
                 e.rotation=rotation.toFixed(2);
                 obj.gesturemove&&obj.gesturemove.call(el,e);  //执行gesturemove方法
             };
         },false);
         document.addEventListener("touchend",function(e){
             if(istouch){
+                alert(2)
                 istouch=false;
                 obj.gestureend&&obj.gestureend.call(el);  //执行gestureend方法
             };
