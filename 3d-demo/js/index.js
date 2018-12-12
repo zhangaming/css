@@ -142,7 +142,7 @@ function MainMove(){
             e.preventDefault();
             if(e.touches.length>=2&&istouch){
                 var now=e.touches;  //得到第二组两个点
-                var scale=getDistance(now[0],now[1])/getDistance(start[0],start[1]); //得到缩放比例，getDistance是勾股定理的一个方法
+                var scale=getDistance(now[0],now[1])-getDistance(start[0],start[1]); //得到缩放比例，getDistance是勾股定理的一个方法
                 var rotation=getAngle(now[0],now[1])-getAngle(start[0],start[1]);  //得到旋转角度，getAngle是得到夹角的一个方法
                 e.scale=scale.toFixed(2);
                 e.rotation=rotation.toFixed(2);
