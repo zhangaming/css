@@ -151,7 +151,6 @@ function MainMove(){
         },false);
         document.addEventListener("touchend",function(e){
             if(istouch){
-                alert(e.scale)
                 istouch=false;
                 obj.gestureend&&obj.gestureend.call(el);  //执行gestureend方法
             };
