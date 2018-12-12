@@ -62,6 +62,8 @@ function MainMove(){
     mian.onmousemove = function(e) {
         e.preventDefault();
         if (click) {
+            console.log(e.pageX)
+            console.log(e.pageY)
             target.rotation.x = targetOnDown.rotation.x - (e.pageY - cursor.y) * 0.3;
             target.rotation.y = targetOnDown.rotation.y + (e.pageX - cursor.x) * 0.3;
         }
@@ -99,11 +101,12 @@ function MainMove(){
         console.log(1)
     };
     boxGesture.gesturemove=function(e){  //双指移动
-        target.zoom = (e.scale > 0) ? 15 : -15;
+        target.zoom += (e.scale > 0) ? 15 : -15;
         if (target.zoom < 50) target.zoom = 50;
     };
     boxGesture.gestureend=function(){  //双指结束
         console.log(2)
+        alert(e.scale)
     };
     (function animate() {
         transform.position.x += (target.position.x - transform.position.x) * 0.2;
@@ -142,7 +145,7 @@ function MainMove(){
             e.preventDefault();
             if(e.touches.length>=2&&istouch){
                 var now=e.touches;  //得到第二组两个点
-                var scale=now[1].pageX-start[1].pageX; //得到缩放比例，getDistance是勾股定理的一个方法
+                var scale=getDistance(now[0],now[1])-getDistance(start[0],start[1]); //得到缩放比例，getDistance是勾股定理的一个方法
                 var rotation=getAngle(now[0],now[1])-getAngle(start[0],start[1]);  //得到旋转角度，getAngle是得到夹角的一个方法
                 e.scale=scale.toFixed(2);
                 e.rotation=rotation.toFixed(2);
@@ -160,10 +163,11 @@ function MainMove(){
     function getDistance(p1, p2) {
         var x = p2.pageX - p1.pageX,
             y = p2.pageY - p1.pageY;
-        return Math.sqrt((x * x) + (y * y));
+        return x;
     };
     function getAngle(p1, p2) {
         var x = p1.pageX - p2.pageX,
-        return x;
+            y = p1.pageY- p2.pageY;
+        return Math.atan2(y, x) * 180 / Math.PI;
     };
 
