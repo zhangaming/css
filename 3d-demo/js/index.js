@@ -99,7 +99,7 @@ function MainMove(){
         console.log(1)
     };
     boxGesture.gesturemove=function(e){  //双指移动
-        target.zoom += (e.scale > 0) ? 15 : -15;
+        target.zoom += (e.scale > 1) ? 15 : -15;
         if (target.zoom < 50) target.zoom = 50;
     };
     boxGesture.gestureend=function(){  //双指结束
