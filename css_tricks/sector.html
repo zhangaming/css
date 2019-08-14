@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>扇形</title>
+</head>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    width: 1200px;
+    margin: 0 auto;
+    padding: 100px 0;
+  }
+
+  .fl {
+    float: left;
+    margin-left: 5px;
+  }
+
+  .cl-both {
+    clear: both;
+  }
+</style>
+<style>
+  .sector-container {
+    width: 200px;
+    height: 200px;
+    background: transparent;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sector-container span {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    transform-origin: bottom center;
+  }
+
+  .sector-container span:nth-child(1) {
+    transform: translate(-50%, 0) rotate(15deg);
+    border-width: 100px 26.7949px 0 26.7949px;
+    border-color: #00adb5 transparent transparent transparent;
+  }
+
+  .sector-container span:nth-child(2) {
+    transform: translate(-50%, 0) rotate(45deg);
+    border-width: 100px 26.7949px 0 26.7949px;
+    border-color: #00adb5 transparent transparent transparent;
+  }
+</style>
+<style>
+  .sector {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: conic-gradient(transparent 0%, #00adb5 0% 16.67%, transparent 16.67%);
+  }
+</style>
+
+<body>
+  <div class="container">
+    <h3>扇形</h3>
+    <svg width="200" :height="200">
+      <path d="M 184.80 47.01 A 100 100 0 0 0 100.00 0.00 L 100 100 Z" fill="#00adb5"></path>
+    </svg>
+    </br>
+    <div class="sector-container">
+      <span></span>
+      <span></span>
+    </div>
+    </br>
+    <div class="sector"></div>
+  </div>
+
+</body>
+
+</html>

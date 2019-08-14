@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>load2</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 1200px;
+      margin: 0 auto;
+      padding: 100px 0;
+    }
+
+    .fl {
+      float: left;
+      margin-left: 5px;
+    }
+
+    .cl-both {
+      clear: both;
+    }
+  </style>
+  <style>
+    .load-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      height: 150px;
+    }
+
+    #load {
+      width: 75px;
+      animation: loading 3s linear infinite;
+    }
+
+    #loading-inner {
+      /* stroke: {
+        dashoffset: 0;
+        dasharray: 300;
+        width: 10;
+        miterlimit: 10;
+        linecap: round;
+      } */
+      stroke-dashoffset: 0;
+      stroke-dasharray: 300;
+      stroke-width: 10;
+      stroke-miterlimit: 10;
+      stroke-linecap: round;
+      -webkit-animation: loading-circle 2s linear infinite;
+      animation: loading-circle 2s linear infinite;
+      stroke: #00adb5;
+      fill: transparent;
+    }
+
+    @keyframes loading {
+      0% {
+        transform: rotate(0);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes loading-circle {
+      0% {
+        stroke-dashoffset: 0;
+      }
+
+      100% {
+        stroke-dashoffset: -600;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="load-container ">
+    <svg id="load" x="0px" y="0px" viewBox="0 0 150 150">
+      <circle id="loading-inner" cx="75" cy="75" r="60" />
+    </svg>
+  </div>
+</body>
+
+</html>

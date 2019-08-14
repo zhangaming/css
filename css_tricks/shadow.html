@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>阴影</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 1200px;
+      margin: 0 auto;
+      padding: 100px 0;
+    }
+
+    .fl {
+      float: left;
+      margin-left: 5px;
+    }
+
+    .cl-both {
+      clear: both;
+    }
+
+    .shadow-container .box {
+      width: 150px;
+      height: 80px;
+      background-color: #00adb5;
+      margin: 0 auto;
+    }
+
+    .shadow-container {
+      display: -webkit-flex;
+      display: flex;
+      -webkit-justify-content: flex-start;
+      justify-content: flex-start;
+      -webkit-align-content: flex-start;
+      align-content: flex-start;
+      -webkit-flex-wrap: wrap;
+      flex-wrap: wrap;
+    }
+
+    .shadow-container .panel {
+      box-sizing: border-box;
+      width: 49%;
+      height: 180px;
+    }
+
+    .shadow-container .box {
+      width: 150px;
+      height: 80px;
+      background-color: #00adb5;
+      margin: 0 auto;
+    }
+
+    .shadow-container .panel .shadow1 {
+      box-shadow: 0 0 12px rgba(0, 173, 181, 0.8);
+    }
+
+    .shadow-container .panel .shadow2 {
+      box-shadow: 0px 6px 12px -4px rgba(0, 173, 181, 0.8);
+    }
+
+    .shadow-container .panel .shadow3 {
+      box-shadow: 6px 6px 12px -5px rgba(0, 173, 181, 0.8);
+    }
+
+    .shadow-container .panel .shadow4 {
+      box-shadow: 6px 0 12px -5px rgba(0, 173, 181, 0.8), -6px 0 12px -5px rgba(0, 173, 181, 0.8);
+    }
+
+    .shadow-container .panel .shadow5 {
+      box-shadow: 0 3px 12px rgba(0, 173, 181, 0.8);
+    }
+
+    .shadow-container .panel .shadow6 {
+      box-shadow: 0 0 0 1px rgba(0, 173, 181, 0.8);
+      background-color: #fff;
+    }
+
+    .shadow-dotted {
+      width: 120px;
+      height: 120px;
+      border: 6px dotted #00adb5;
+      filter: drop-shadow(2px 2px 2px rgba(64, 158, 255, .9))
+    }
+
+    .shadow-triangle {
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 50px 50px 50px;
+      border-color: transparent transparent #00adb5 transparent;
+      filter: drop-shadow(10px 0px 10px rgba(39, 92, 171, .5))
+    }
+
+    .circle-square {
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle at bottom right, transparent 49px, #00adb5 34px);
+      filter: drop-shadow(2px 2px 2px rgba(64, 158, 255, .9))
+    }
+
+    /* 信息窗口 */
+    .tip {
+      width: 140px;
+      height: 80px;
+      border: 1px solid #00adb5;
+      border-radius: 4px;
+      position: relative;
+      background-color: #fff;
+      filter: drop-shadow(0px 2px 4px rgba(64, 158, 255, .9))
+    }
+
+    .tip::before {
+      content: '';
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 10px 10px 10px;
+      border-color: transparent transparent #fff transparent;
+      position: absolute;
+      top: -10px;
+      left: 0;
+      right: 0;
+      margin: auto;
+      z-index: 2;
+    }
+
+    .tip::after {
+      content: '';
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 10px 10px 10px;
+      border-color: transparent transparent #00adb5 transparent;
+      position: absolute;
+      top: -11px;
+      left: 0;
+      right: 0;
+      margin: auto;
+      z-index: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>常用阴影</h2>
+    <div class="shadow-container">
+      <div class="panel">
+        <p>无阴影</p>
+        <div class="box shadow1"></div>
+      </div>
+
+      <div class="panel">
+        <p>下侧投影 </p>
+        <div class="box shadow2"></div>
+      </div>
+
+      <div class="panel">
+        <p>右侧投影</p>
+        <div class="box shadow3"></div>
+      </div>
+
+      <div class="panel">
+        <p>双侧投影</p>
+        <div class="box shadow4"></div>
+      </div>
+
+      <div class="panel">
+        <p>菜单投影</p>
+        <div class="box shadow5"></div>
+      </div>
+
+      <div class="panel">
+        <p>投影边框</p>
+        <div class="box shadow6"></div>
+      </div>
+
+      <div class="panel">
+        <p>虚线阴影</p>
+        <div class="shadow-dotted"></div>
+      </div>
+
+      <div class="panel">
+        <p>三角形阴影</p>
+        <div class="shadow-triangle"></div>
+      </div>
+
+      <div class="panel">
+        <p>右缺圆角阴影</p>
+        <div class="circle-square"></div>
+      </div>
+
+      <div class="panel">
+        <p>信息窗口</p>
+        <div class="tip"></div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
