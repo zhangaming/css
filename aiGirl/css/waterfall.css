@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: 0;
+    background-color: #333;
+}
+
+.container {
+    position: relative;
+    width: 1200px;
+    margin: 10px auto;
+}
+
+.container .box {
+    display: block;
+    width: 300px;
+    margin: 20px 0 30px;
+    padding: 5px 0 0 15px;
+    float: left;
+    overflow: hidden;
+}
+
+.container .box .active {
+    padding: 10px;
+    border: 1px solid #cccccc;
+    box-shadow: 0 0 5px #ccc;
+    border-radius: 5px;
+}
+
+.container .box img {
+    max-width: 100%;
+}
+
+.container .box h2 {
+    margin: 10px 0 0;
+    padding: 0;
+    font-size: 20px;
+    color: white;
+}
+
+.container .box p {
+    margin: 0;
+    padding: 0 0 10px;
+    font-size: 16px;
+    color: floralwhite;
+}

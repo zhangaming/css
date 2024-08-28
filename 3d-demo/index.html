@@ -34,8 +34,37 @@
         </div>
     </div>
     <script type="text/javascript" src="./js/requestAnimationFrame.js"></script>
+    <script src="./js/three.min.js"></script>
     <script type="text/javascript" src="./js/index.js"></script>
     <script type="text/javascript">
+        var scene = new THREE.Scene();
+        var getObjectCSSMatrix = function (matrix) {
+            matrix.elements[3] = 0;
+            matrix.elements[7] = 0;
+            matrix.elements[11] = 0;
+            matrix.elements[15] = 1;
+            var elements = matrix.elements;
+
+            return 'matrix3d(' +
+                epsilon(elements[0]) + ',' +
+                -epsilon(elements[1]) + ',' +
+                epsilon(elements[2]) + ',' +
+                epsilon(elements[3]) + ',' +
+                epsilon(-elements[4]) + ',' +
+                -epsilon(-elements[5]) + ',' +
+                epsilon(-elements[6]) + ',' +
+                epsilon(-elements[7]) + ',' +
+                epsilon(elements[8]) + ',' +
+                -epsilon(elements[9]) + ',' +
+                epsilon(elements[10]) + ',' +
+                epsilon(elements[11]) + ',' +
+                epsilon(elements[12]) + ',' +
+                -epsilon(elements[13]) + ',' +
+                epsilon(elements[14]) + ',' +
+                epsilon(elements[15]) +
+                ')';
+
+        };
         function Magic() {//构造函数
             this.oUl = document.getElementById('list').children[0];
             this.aLi = this.oUl.children;
@@ -47,7 +76,8 @@
                 for (var i = 0; i < this.listNum; i++) {
                     var oLi = document.createElement('li');
                     var d = flyData[0];
-                    oLi.innerHTML = "<b class='liCover'></b>" +
+                    oLi.innerHTML =
+                        "<b class='liCover'></b>" +
                         "<p class='liTitil'>" + d.type + "</p>" +
                         "<p class='liAuthor'>" + d.author + "</p>" +
                         "<p class='liTime'>" + d.time + "</p>";
@@ -55,6 +85,7 @@
                         tY = Math.random() * 6000 - 3000,
                         tZ = Math.random() * 6000 - 3000;
                     oLi.style.transform = "translate3D(" + tX + "px," + tY + "px," + tZ + "px)";
+                    oLi.style.backgroundColor = 'rgba(0,127,127,' + (Math.random() * 0.5 + 0.25) + ')';
                     this.oUl.appendChild(oLi);
                 };
                 setTimeout(function () {
@@ -85,7 +116,7 @@
                         var x = (this.aLi.x - 2) * disX;
                         var y = (this.aLi.y - 2) * disY;
                         var z = (this.aLi.z - 2) * disZ;
-                        var val = "translate3D(" + x + "px," + y + "px," + z + "px)";
+                        var val = "translate3D(" + x + "px," + y + "px," + z + "px)"
                         this.grid.arr[i] = val;
                         this.aLi[i].style.transform = val;
                     };
@@ -126,8 +157,8 @@
                         this.aLi[i].style.transform = this.Sphere.arr[i];
                     };
                 } else {
-                    console.log(this.listNum)//125
                     this.Sphere.arr = [];
+                    var vector = new THREE.Vector3(); //向量
                     for (var i = 0, l = this.listNum; i < l; i++) {
                         var phi = Math.acos(-1 + (2 * i) / l);
                         var theta = Math.sqrt(l * Math.PI) * phi;
@@ -136,24 +167,27 @@
                         for (var i = 0, l = this.listNum; i < l; i++) {
                             var phi = Math.acos(-1 + (2 * i) / l);
                             var theta = Math.sqrt(l * Math.PI) * phi;
-                            var object = {
-                                position: {
-                                    x: 0,
-                                    y: 0,
-                                    z: 0
-                                }
-                            };
+                            var object = new THREE.Object3D();
                             object.position.x = 800 * Math.cos(theta) * Math.sin(phi);
                             object.position.y = 800 * Math.sin(theta) * Math.sin(phi);
                             object.position.z = 800 * Math.cos(phi);
                             var x = object.position.x;
                             var y = object.position.y;
                             var z = object.position.z;
-                            var val = "translate3D(" + x + "px," + y + "px," + z + "px)";
+                            scene.add(object);
+                            vector.copy(object.position).multiplyScalar(2);
+                            object.lookAt(vector);//面向原点
+                            scene.updateMatrixWorld(); //场景更新
+                            var val = getObjectCSSMatrix(object.matrix);
                             this.Sphere.arr[i] = val
                             this.aLi[i].style.transform = val;
+                            this.aLi[i].style.transformStyle = 'preserve-3d';
                         };
                     }
+
+
+
+
                 }
             }
         }
